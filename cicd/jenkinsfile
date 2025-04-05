@@ -17,8 +17,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh 'chmod +x scripts/deploy.sh'
-                sh './scripts/deploy.sh'
+                cat './scripts/deploy.sh'
             }
         }
     }
