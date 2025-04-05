@@ -17,7 +17,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                cat './scripts/deploy.sh'
+                sh 'chmod +x script/deploy.sh'
+                sh 'cat script/deploy.sh' // ✅ use this if you want to show script content
+                sh './script/deploy.sh'
             }
         }
     }
