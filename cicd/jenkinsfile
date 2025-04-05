@@ -1,34 +1,35 @@
-
 pipeline {
-      stages {
-        stage('Code Checkout') {
+    agent any
+
+    stages {
+        stage('Build') {
             steps {
-                    checkout([$class: 'GitSCM',
-                    branches: [[name: "refs/heads/${BRANCH_NAME}"]],
-                    extensions: [[$class: 'SubmoduleOption', recursiveSubmodules: true, parentCredentials : true]],
-                    userRemoteConfigs: [[url: repositoryUrl, credentialsId: gitCredentialsId]]
-                ])
-            }
-        } 
-        stage('deploy') {
-            steps {
-                   script{
-                     echo "hello world"
-                   }
+                echo 'Building...'
             }
         }
 
-        success {
-            script {
-                echo '### SUCCESS'
+        stage('Test') {
+            steps {
+                echo 'Testing...'
             }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
         }
         failure {
-            echo '### FAILURE'
+            echo 'Pipeline failed.'
         }
         aborted {
-            echo '### ABORTED'
+            echo 'Pipeline aborted.'
         }
     }
 }
-
